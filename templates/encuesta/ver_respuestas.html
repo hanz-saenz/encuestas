@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Lista de Respuestas
+{% endblock %}
+
+
+{% block extra_css %}
+
+{% endblock %}
+
+
+{% block extra_head %}
+{% endblock %}
+
+{% block content %}
+
+<h1>Encuestas</h1>
+<p>Listado de Respuestas de Usario {{user.username}}</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Pregunta</th>
+            <th>Respuesta</th>
+            <th>Fecha de creacion</th>
+            <th>Fecha de actualizacion</th>
+        
+        </tr>
+    </thead>
+    <tbody>
+        {% for pregunta in preguntas %}
+        <tr>
+            <td>{{pregunta.texto_pregunta}}</td>
+            <td>{{pregunta.respuesta}}</td>
+            <td>{{pregunta.fecha_creacion}}</td>
+            <td>{{pregunta.fecha_actualizacion}}</td>
+
+        </tr>
+        {% endfor %}
+
+    </tbody> 
+</table>
+{% if calificar_encuestas %}
+ Calificacion de encuesta {{calificar_encuestas.calificacion}}
+ {% endif %}
+
+<a href="{% url 'lista_encuestas_respondidas' %}">Volver</a>
+
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

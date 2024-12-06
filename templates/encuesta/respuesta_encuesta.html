@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Responder Encuesta
+{% endblock %}
+
+
+{% block extra_css %}
+
+{% endblock %}
+
+
+{% block extra_head %}
+{% endblock %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    
+    {% for pregunta in preguntas %}
+
+        <div>
+            <label>{{ pregunta.texto_pregunta }}</label>
+            <textarea name="{{ pregunta.id }}" id="{{ pregunta.id }}" required></textarea>
+        </div>
+
+    {% endfor %}
+
+    <button type="submit">Guardar</button>
+    
+    
+    
+    
+</form>
+
+
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

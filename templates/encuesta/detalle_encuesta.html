@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Detalles de {{ encuesta.titulo }}
+{% endblock %}
+
+
+{% block extra_css %}
+
+{% endblock %}
+
+
+{% block extra_head %}
+{% endblock %}
+
+{% block content %}
+
+<h1>Detalles de Encuesta</h1>
+
+<p>Titulo: {{ encuesta.titulo }}</p>
+<p>Descripcion: {{ encuesta.descripcion }}</p>
+<p>Fecha de creacion: {{ encuesta.fecha_creacion }}</p>
+<p>Fecha de actualizacion: {{ encuesta.fecha_actualizacion }}</p>
+
+{% if user.is_authenticated %}
+<div>
+    <a href="{% url 'editar_encuesta' encuesta.id %}">Editar</a>
+</div>
+<div>
+    <a href="{% url 'eliminar_encuesta' encuesta.id %}">Eliminar</a>
+</div>
+<div>
+    <a href="{% url 'index' %}">Lista</a>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

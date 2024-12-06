@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Lista de encuestas respondidas
+{% endblock %}
+
+
+{% block extra_css %}
+
+{% endblock %}
+
+
+{% block extra_head %}
+{% endblock %}
+
+{% block content %}
+
+<h1>Encuestas para Responder</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Encuesta</th>
+            <!-- <th>Descripcion</th> -->
+            <th>Fecha de creacion</th>
+            <th>Fecha de actualizacion</th>
+            <th>Opciones</th>
+            <!-- {% if user.is_authenticated %}
+            <th>Editar</th>
+            <th>Eliminar</th>
+            {% endif %} -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for encuesta in encuestas %}
+        <tr>
+            <td><a href="{% url 'respuesta_usuario' encuesta.id %}" target="_blank">{{encuesta.titulo}}</a></td>
+            <!-- <td>{{encuesta.descripcion}}</td> -->
+            <td>{{encuesta.fecha_creacion}}</td>
+            <td>{{encuesta.fecha_actualizacion}}</td>
+            <td><a href="{% url 'respuesta_usuario' encuesta.id %}" target="_blank">Responder</a></td>
+            <!-- {% if user.is_authenticated %}
+            <td><a href="{% url 'editar_encuesta' encuesta.id %}">Editar</a></td>
+            <td><a href="{% url 'eliminar_encuesta' encuesta.id %}">Eliminar</a></td>
+            {% endif %} -->
+        </tr>
+        {% endfor %}
+
+    </tbody> 
+</table>
+
+<h1>Encuestas Respondidas</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Titulo</th>
+                <!-- <th>Descripcion</th> -->
+                <th>Fecha de creacion</th>
+                <th>Fecha de actualizacion</th>
+                <th>Opciones</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for encuesta in lista_encuestas_respondidas %}
+            <tr>
+                <td><a href="{% url 'ver_respuestas' encuesta.id %}">{{encuesta.titulo}}</a></td>
+                <!-- <td>{{encuesta.descripcion}}</td> -->
+                <td>{{encuesta.fecha_creacion}}</td>
+                <td>{{encuesta.fecha_actualizacion}}</td>
+                <td><a href="{% url 'ver_respuestas' encuesta.id %}">Ver Respuestas</a></td>
+                
+                {% if encuesta.id not in calificaciones %}
+                <td><a href="{% url 'calificar_encuesta' encuesta.id %}">Calificar</a></td>
+                {% endif %}
+                
+            </tr>
+            {% endfor %}
+
+        </tbody> 
+    </table>
+
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

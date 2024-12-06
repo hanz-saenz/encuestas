@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Lista de encuestas
+{% endblock %}
+
+
+{% block extra_css %}
+
+{% endblock %}
+
+
+{% block extra_head %}
+{% endblock %}
+
+{% block content %}
+
+<h1>Encuestas</h1>
+<p>Listado de encuestas</p>
+{% if user.is_authenticated %}
+<button onclick="window.location.href='{% url 'crear_encuesta' %}'">Crear encuesta</button>
+<a href="{% url 'crear_encuesta' %}">Crear encuesta</a>
+{% endif %}
+<table>
+    <thead>
+        <tr>
+            <th>Titulo</th>
+            <!-- <th>Descripcion</th> -->
+            <th>Fecha de creacion</th>
+            <th>Fecha de actualizacion</th>
+            {% if user.is_authenticated %}
+            <th>Editar</th>
+            <th>Eliminar</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for encuesta in encuestas %}
+        <tr>
+            <td><a href="{% url 'detalle_encuesta' encuesta.id %}">{{encuesta.titulo}}</a></td>
+            <!-- <td>{{encuesta.descripcion}}</td> -->
+            <td>{{encuesta.fecha_creacion}}</td>
+            <td>{{encuesta.fecha_actualizacion}}</td>
+            {% if user.is_authenticated %}
+            <td><a href="{% url 'editar_encuesta' encuesta.id %}">Editar</a></td>
+            <td><a href="{% url 'eliminar_encuesta' encuesta.id %}">Eliminar</a></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+
+    </tbody> 
+</table>
+
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

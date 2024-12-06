@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Editar Pregunta
+{% endblock %}
+
+
+{% block extra_css %}
+
+{% endblock %}
+
+
+{% block extra_head %}
+{% endblock %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+    <a href="{% url 'detalle_pregunta' form.instance.pk %}">Cancelar</a>
+</form>
+
+
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Perfil de Usuario
+{% endblock %}
+
+
+{% block extra_css %}
+
+{% endblock %}
+
+
+{% block extra_head %}
+{% endblock %}
+
+{% block content %}
+
+<h1>Perfil de Usuario {{ perfil.user.username }}</h1>
+
+<p><strong>Nombre:</strong> {{ perfil.user.first_name }}</p>
+<p><strong>Apellido:</strong> {{ perfil.user.last_name }}</p>
+
+{% if perfil.avatar %}
+<p><strong>Avatar:</strong></p>
+<img src="{{ perfil.avatar.url }}" alt="Avatar de {{ perfil.user.username }}">
+{% endif %}
+
+{% if perfil.telefono %}
+<p><strong>Telefono:</strong> {{ perfil.telefono }}</p>
+{% endif %}
+
+<a href="{% url 'editar_perfil' perfil.id %}">Editar Perfil</a>
+
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}
