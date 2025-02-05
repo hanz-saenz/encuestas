@@ -35,7 +35,7 @@ Lista de encuestas
         </tr>
     </thead>
     <tbody>
-        {% for encuesta in encuestas %}
+        {% for encuesta in object_list.encuestas %}
         <tr>
             <td><a href="{% url 'detalle_encuesta' encuesta.id %}">{{encuesta.titulo}}</a></td>
             <!-- <td>{{encuesta.descripcion}}</td> -->

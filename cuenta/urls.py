@@ -10,5 +10,7 @@ urlpatterns = [
     path('logout', logout_usuario, name='logout'),
     path('perfil', perfil, name='perfil'),
     path('perfil/editar/<int:id_usuario>', editar_perfil, name='editar_perfil'),
+
+    path('tokenusuario', token_usuario, name='token_usuario'),
     
 ]

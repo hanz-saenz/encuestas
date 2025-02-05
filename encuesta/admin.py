@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Encuesta, Pregunta, Respuesta, RespuestaPregunta, Calificacion
+from .models import Encuesta, Pregunta, Respuesta, RespuestaPregunta, Calificacion, PoliticasDatos
 # Register your models here.
 
 
@@ -22,3 +22,4 @@ admin.site.register(Pregunta, PreguntaAdmin)
 admin.site.register(Respuesta)
 admin.site.register(RespuestaPregunta, RespuestaPreguntaAdmin)
 admin.site.register(Calificacion)
+admin.site.register(PoliticasDatos)

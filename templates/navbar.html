@@ -7,6 +7,7 @@
         {% if user.is_authenticated %}
         <li><a href="{% url 'perfil' %}">Perfil</a></li>
             <li><a href="{% url 'lista_encuestas_respondidas' %}">Mis encuestas</a></li>
+            <li><a href="{% url 'cargar_documento' %}">Cargar Doc Políticas</a></li>
             <li><a href="{% url 'logout' %}">Logout</a></li>
         {% else %}
             <li><a href="{% url 'registro' %}">Registro</a></li>

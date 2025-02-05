@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import logout
-from .models import Perfil
+from .models import Perfil, TokensUser
 from .forms import PerfilForm
 # Create your views here.
 
@@ -51,3 +51,27 @@ def editar_perfil(request, id_usuario):
         form = PerfilForm(instance=perfil)
 
     return render(request, 'cuenta/editar_perfil.html', {'form': form})
+
+from rest_framework.response import Response
+from rest_framework import viewsets, status
+from rest_framework.decorators import api_view
+
+from django.contrib.auth.models import User
+@api_view(['POST'])
+def token_usuario(request):
+
+    print(request)
+
+    print(request.data.get('token_access'))
+    print(request.data.get('username'))
+
+    token = request.data.get('token_access')
+    username = request.data.get('username')
+
+    info_usuario = User.objects.get(username=username)
+    print(info_usuario)
+
+    toke_usuario = TokensUser.objects.create(token=token, user_id=info_usuario.id)
+
+    return Response({'token': token}, status=status.HTTP_201_CREATED)
+

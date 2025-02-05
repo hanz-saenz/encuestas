@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Cargar Documento de Políticas
+{% endblock %}
+
+
+{% block extra_css %}
+
+{% endblock %}
+
+
+{% block extra_head %}
+{% endblock %}
+
+{% block content %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+</form>
+
+Resultado de tarea
+{{resultado}}
+
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

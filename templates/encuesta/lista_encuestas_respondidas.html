@@ -1,5 +1,6 @@
-{% extends 'base.html' %}
 
+{% extends 'base.html' %}
+{% load static %}
 {% block title %}
 Lista de encuestas respondidas
 {% endblock %}
@@ -11,11 +12,16 @@ Lista de encuestas respondidas
 
 
 {% block extra_head %}
+
 {% endblock %}
 
 {% block content %}
 
-<h1>Encuestas para Responder</h1>
+<h1 class="titulo_respuestas">Encuestas para Responder</h1>
+
+<div>
+    <img src="{% static 'assets/imagenes/respuestas.jpg' %}" alt="">
+</div>
 
 <table>
     <thead>

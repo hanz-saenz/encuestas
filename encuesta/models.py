@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+
+url_static = 'static/assets/imagenes'
 # Create your models here.
 class Encuesta(models.Model):
     titulo = models.CharField(verbose_name="Título",max_length=100)
@@ -78,3 +80,16 @@ class Calificacion(models.Model):
     class Meta:
         verbose_name = "Calificación"
         verbose_name_plural = "Calificaciones"
+
+
+class PoliticasDatos(models.Model):
+    titulo = models.CharField(verbose_name="Título",max_length=100)
+    archivo = models.FileField(upload_to=f'{url_static}/politicas/', verbose_name="Archivo")
+    fecha_creacion = models.DateField(verbose_name="Fecha de creación", auto_now_add=True)
+
+    def __str__(self):
+        return self.titulo
+    
+    class Meta:
+        verbose_name = "Política de Datos"
+        verbose_name_plural = "Políticas de Datos"

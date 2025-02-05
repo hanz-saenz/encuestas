@@ -1,5 +1,5 @@
 from django import forms
-from .models import Encuesta, Pregunta, Respuesta, RespuestaPregunta, Calificacion
+from .models import Encuesta, Pregunta, Respuesta, RespuestaPregunta, Calificacion, PoliticasDatos
 
 
 class EncuestaForm(forms.ModelForm):
@@ -87,3 +87,9 @@ class FormularioCalificacion(forms.ModelForm):
                     'class': 'form-control'
             }),
         }
+
+class PoliticasDatosForm(forms.ModelForm):
+
+    class Meta:
+        model = PoliticasDatos
+        fields = ['archivo','titulo']

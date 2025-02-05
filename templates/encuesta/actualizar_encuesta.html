@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Actualizar Encuesta
+{% endblock %}
+
+
+{% block extra_css %}
+
+{% endblock %}
+
+
+{% block extra_head %}
+{% endblock %}
+
+{% block content %}
+
+<h1>Actualizar Encuesta {{ encuesta.titulo }} con AJAX  </h1>
+
+<form id="encuesta_actualizar" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button id="boton_actualizar" type="submit" class="btn btn-success">Guardar</button>
+</form>
+
+<div id="resultado" style="display: none;" ></div>
+<div id="titulo_resultado" style="display: none;" ></div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#encuesta_actualizar').submit(function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'encuesta-actuyalizar' encuesta.id %}",
+            data: $(this).serialize(),
+            success: function(response) {
+
+                if (response.success) {
+                    $('#resultado').html(response.message);
+                    $('#titulo_resultado').html(response.titulo);
+                }
+                
+                $('#resultado').show();
+                $('#titulo_resultado').show();
+            }
+
+        });
+    })
+})
+
+</script>
+{% endblock %}

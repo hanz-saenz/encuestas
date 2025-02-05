@@ -37,8 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'cms',  # Django CMS    
+    'menus',  # Django CMS Menus   
+    'treebeard',  # Necesario para Django CMS   
+    'sekizai',  # Manejo de recursos CSS/JS    
+
+    'rest_framework',
+    'corsheaders',
     'encuesta',
     'cuenta',
+    'celery',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +58,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'cms.middleware.toolbar.ToolbarMiddleware',
+    "cms.middleware.user.CurrentUserMiddleware",
+    "cms.middleware.page.CurrentPageMiddleware",
+    "cms.middleware.toolbar.ToolbarMiddleware",
+    "cms.middleware.language.LanguageCookieMiddleware",
+    
 ]
 
 ROOT_URLCONF = 'encuestas.urls'
@@ -64,6 +80,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'sekizai.context_processors.sekizai', #css/js
+                'cms.context_processors.cms_settings', #Django CMS
             ],
         },
     },
@@ -105,7 +123,12 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'es-Co'
+LANGUAGES = [    
+    ('en', 'English'),    
+    ('es', 'Español'),
+]
+
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'America/Bogota'
 
@@ -118,6 +141,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -128,5 +155,55 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 
-MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR / 'media'
+# MEDIA_URL = '/media/'
+
+
+CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1:8000',
+    'https://localhost:3000',
+    'http://localhost:3000',
+]
+CORS_ALLOW_ALL_ORIGINS = True
+
+#VARIABLES CELERY
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost'
+CELERY_RESULT_BACKEND = 'rpc://'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_RESULT_PERSISTENT = False
+
+
+# Funcionamiento de CMS
+# The `LANGUAGES` setting in Django is used to define the available languages in your project. It is a
+# list of tuples where each tuple represents a language and its display name.
+
+SITE_ID = 1
+
+CMS_TOOLBAR_CONF = {
+    'ENABLE_CMS_TOOLBAR': True,  # Habilitar la barra de herramientas
+}
+
+CMS_CONFIRM_VERSION4 = True
+
+CMS_TEMPLATES = [
+    ('encuesta/cms.html', 'Encuesta CMS'),
+]
+
+#Configuracion restframework y jwt
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+from datetime import timedelta 
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # Duración del token de acceso
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=15),    # Duración del token de refresco
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+}

@@ -19,13 +19,29 @@ from django.urls import path, include
 from encuesta.views import home
 from django.conf import settings
 from django.conf.urls.static import static
+from encuesta.views import cargar_documento, ejecuta_tarea
+from django.conf.urls.i18n import i18n_patterns
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='index'),
     path('encuesta/', include('encuesta.urls'), name='encuesta'),
     path('cuenta/', include('cuenta.urls'), name='cuenta'),
+    path('cargar_documento/', cargar_documento, name='cargar_documento'),
+    path('ejecuta_tarea/', ejecuta_tarea, name='ejecuta_tarea'),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_usuario'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='refrescar_token'),
+
 ]
 
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+urlpatterns += i18n_patterns(
+    path("cms/", include("cms.urls")),
+)
+
+
+# urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
